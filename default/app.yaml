@@ -1,0 +1,29 @@
+application: team-3502
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+handlers:
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+  
+- url: /css
+  static_dir: static/css
+
+- url: /js
+  static_dir: static/js
+  
+- url: /fonts
+  static_dir: static/fonts
+
+- url: /img
+  static_dir: static/img
+
+- url: .*
+  script: main.app
+
+libraries:
+- name: webapp2
+  version: "2.5.2"
