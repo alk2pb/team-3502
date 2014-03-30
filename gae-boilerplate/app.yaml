@@ -59,6 +59,10 @@ handlers:
 - url: /boilerplate/css
   mime_type: text/css
   static_dir: bp_includes/static/css
+  
+- url: /boilerplate/fonts
+  mime_type: text/fonts
+  static_dir: bp_includes/static/fonts
 
 - url: /boilerplate/js
   mime_type: text/javascript
