@@ -18,6 +18,7 @@ _routes = [
     RedirectRoute('/taskqueue-send-email/', handlers.SendEmailHandler, name='taskqueue-send-email', strict_slash=True),
     RedirectRoute('/_ah/login_required', handlers.LoginRequiredHandler),
     RedirectRoute('/login/', handlers.LoginHandler, name='login', strict_slash=True),
+    RedirectRoute('/about/', handlers.AboutHandler, name='about', strict_slash=True),
     RedirectRoute('/logout/', handlers.LogoutHandler, name='logout', strict_slash=True),
     RedirectRoute('/social_login/<provider_name>', handlers.SocialLoginHandler, name='social-login', strict_slash=True),
     RedirectRoute('/social_login/<provider_name>/complete', handlers.CallbackSocialLoginHandler, name='social-login-complete', strict_slash=True),

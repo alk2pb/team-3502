@@ -98,6 +98,12 @@ class SendEmailHandler(BaseHandler):
             logging.error("Error sending email: %s" % e)
 
 
+class AboutHandler(BaseHandler):
+    def get(self):
+        """ Returns about page """
+        params = {}
+        return self.render_template('about.html', **params)
+
 class LoginHandler(BaseHandler):
     """
     Handler for authentication

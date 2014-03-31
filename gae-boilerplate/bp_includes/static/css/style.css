@@ -11,7 +11,15 @@ For more info and more free Bootstrap 3 HTML themes, visit http://startbootstrap
 /* Global Styles */
 
 body {
-  margin-top: 50px;
+  padding-top: 70px;
+  padding-bottom: 30px;
+  background: url(../img/bath.jpg) no-repeat center center fixed;
+  background-color: #fff;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  color: #fff;
 }
 
 #wrapper {
@@ -20,7 +28,6 @@ body {
 
 #page-wrapper {
   width: 100%;
-  padding: 5px 15px;
 }
 
 /* Nav Messages */
@@ -163,13 +170,96 @@ table.tablesorter thead tr th:hover {
 
 }
 
-/* Navbar Shift */
-
-body {
-  padding-top: 70px;
-  padding-bottom: 30px;
-}
-
 .dropdown-login {
   padding:20px;
+  min-width:250px;
+}
+
+#form_login_user {
+  background: transparent;
+}
+
+.well {
+  background-color: rgba(0,0,0,.4);
+  border:none;
+}
+
+.navbar-custom a {
+    color: #999;
+}
+
+.navbar-custom a {
+    -webkit-transition: color .3s ease-in-out;
+    -moz-transition: color .3s ease-in-out;
+    transition: color .3s ease-in-out;
+}
+
+.navbar-custom a:hover,
+.navbar-custom a:focus {
+    color: #fff;
+}
+
+.navbar-custom .nav li a {
+    -webkit-transition: background .3s ease-in-out, color .3s ease-in-out;
+    -moz-transition: background .3s ease-in-out, color .3s ease-in-out;
+    transition: background .3s ease-in-out, color .3s ease-in-out;
+}
+
+.navbar-custom .nav li a:hover,
+.navbar-custom .nav li a:focus,
+.navbar-custom .nav li.active {
+    outline: 0;
+    color: #fff;
+    background-color: rgba(255,255,255,.2);
+}
+
+.navbar-custom {
+    padding: 0;
+    background-color: #000;
+}
+
+.dropdown-menu {
+  color:#000;
+}
+
+.dropdown-menu-login {
+	color: #428bca;
+	text-decoration: none;
+}
+
+.dropdown-menu-login:hover,
+.dropdown-menu-login:focus {
+	color: #2a6496;
+	text-decoration: underline;
+}
+
+.intro {
+  background: rgba(0,0,0,.4);
+}
+
+.panel-body {
+  color: #fff;
+}
+
+.panel-custom {
+  background-color: rgba(0,0,0,.4);
+}
+
+.social-btn {
+  color: #999;
+}
+
+.social-btn:hover, .social-btn:active {
+  color: #fff;
+  text-decoration: none;
+}
+
+.social-btn {
+    -webkit-transition: color .3s ease-in-out;
+    -moz-transition: color .3s ease-in-out;
+    transition: color .3s ease-in-out;
+}
+
+.google-plus-signin {
+  /*background-image: url('../img/Red-signin_Google_base_44dp.png');*/
 }

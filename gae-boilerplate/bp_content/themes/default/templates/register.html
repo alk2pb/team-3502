@@ -5,23 +5,35 @@
 {% endblock %}
 
 {% block content %}
-
-    <form id="form_register" action="{{ url|safe }}" method="post" class="well form-horizontal">
-        <fieldset>
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
-            {{ macros.field(form.username, label=_("Username"), placeholder=_("Enter your")+" "+_("Username"), class="input-xlarge focused required") }}
-            {{ macros.field(form.name, label=_("Name"), placeholder=_("Enter your")+" "+_("Name"), class="input-xlarge focused") }}
-            {{ macros.field(form.last_name, label=_("Last Name"), placeholder=_("Enter your")+" "+_("Last Name"), class="input-xlarge focused") }}
-            {{ macros.field(form.email, label=_("Email"), placeholder=_("Enter your")+" "+_("Email"), class="input-xlarge focused required email", type="email") }}
-            {{ macros.field(form.password, label=_("Password"), placeholder=_("Enter your")+" "+_("Password"), class="input-xlarge focused required", type="password") }}
-            {{ macros.field(form.c_password, label=_("Confirm Password"), placeholder=_("Confirm Password"), class="input-xlarge focused required", type="password") }}
-            {{ macros.field(form.country, label=_("Country")) }}
-            {{ macros.field(form.tz, label=_("Timezone")) }}
-            <div class="form-actions">
-                <button type="submit" class="btn btn-primary">{% trans %}Sign Up{% endtrans %}</button>
-            </div>
-        </fieldset>
-    </form>
+<div id="page-wrapper">
+  <div class="row">
+    <div class="col-lg-4 well">
+      <form id="form_register" action="{{ url|safe }}" method="post" class="form-horizontal">
+          <fieldset>
+              <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+              {{ macros.field(form.username, label=_("Username"), placeholder=_("Enter your")+" "+_("Username"), class="input-xlarge focused required form-control") }}
+              {{ macros.field(form.name, label=_("Name"), placeholder=_("Enter your")+" "+_("Name"), class="input-xlarge focused form-control") }}
+              {{ macros.field(form.last_name, label=_("Last Name"), placeholder=_("Enter your")+" "+_("Last Name"), class="input-xlarge focused form-control") }}
+              {{ macros.field(form.email, label=_("Email"), placeholder=_("Enter your")+" "+_("Email"), class="input-xlarge focused required email form-control", type="email") }}
+              {{ macros.field(form.password, label=_("Password"), placeholder=_("Enter your")+" "+_("Password"), class="input-xlarge focused required form-control", type="password") }}
+              {{ macros.field(form.c_password, label=_("Confirm Password"), placeholder=_("Confirm Password"), class="input-xlarge focused required form-control", type="password") }}
+              <!--{{ macros.field(form.country, label=_("Country"), class="form-control") }}
+              {{ macros.field(form.tz, label=_("Timezone"), class="form-control") }}-->
+              <div class="form-actions">
+                  <button type="submit" class="btn btn-primary">{% trans %}Sign Up{% endtrans %}</button>
+              </div>
+          </fieldset>
+      </form>
+    </div>
+    <div class="col-lg-8">
+      <div class="jumbotron intro">
+        <h1>Hello, world!</h1>
+        <p>...</p>
+        <p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}
 

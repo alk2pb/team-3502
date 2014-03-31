@@ -8,18 +8,31 @@
 {% endblock %}
 
 {% block content %}
-    <form id="form_contact" action="{{ url|safe }}" method="post" class="well form-horizontal">
-        <fieldset>
-            <input type="hidden" name="exception" value="{{ exception|e }}">
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
-            {{ macros.field(form.name, label=_("Name"), placeholder=_("Enter your")+" "+_("Name"), class="input-xlarge focused required") }}
-            {{ macros.field(form.email, label=_("Email"), placeholder=_("Enter your")+" "+_("Email"), class="input-xlarge focused required email", type="email") }}
-            {{ macros.field(form.message, label=_("Message"), class="input-xlarge required", cols="40", rows="8") }}
-            <div class="form-actions">
-                <button type="submit" class="btn btn-primary">{% trans %}Send Message{% endtrans %}</button>
-            </div>
-        </fieldset>
-    </form>
+<div id="page-wrapper">
+  <div class="row">
+    <div class="col-lg-4 well">
+      <form id="form_contact" action="{{ url|safe }}" method="post" class="form-horizontal">
+          <fieldset>
+              <input type="hidden" name="exception" value="{{ exception|e }}">
+              <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+              {{ macros.field(form.name, label=_("Name"), placeholder=_("Enter your")+" "+_("Name"), class="input-xlarge focused required form-control") }}
+              {{ macros.field(form.email, label=_("Email"), placeholder=_("Enter your")+" "+_("Email"), class="input-xlarge focused required email form-control", type="email") }}
+              {{ macros.field(form.message, label=_("Message"), class="input-xlarge required form-control", cols="40", rows="8") }}
+              <div class="form-actions">
+                  <button type="submit" class="btn btn-primary">{% trans %}Send Message{% endtrans %}</button>
+              </div>
+          </fieldset>
+      </form>
+    </div>
+    <div class="col-lg-8">
+      <div class="jumbotron intro">
+        <h1>Hello, world!</h1>
+        <p>...</p>
+        <p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
 
 {% block mediaJS %}

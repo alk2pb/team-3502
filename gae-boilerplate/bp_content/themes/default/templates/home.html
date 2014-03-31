@@ -4,22 +4,23 @@
     <div id="page-wrapper">
         {% if user_id %}
         <div class="row">
-          <div class="col-lg-8">
-            <div class="panel panel-primary">
+          <div class="col-lg-4">
+            <div class="panel panel-custom">
               <div class="panel-heading">
-                <h3 class="panel-title"><span class="glyphicon glyphicon-user"></span> Your Weight Over Time</h3>
+                <h3 class="panel-title">Summary</h3>
               </div>
               <div class="panel-body">
-                <div id="morris-chart-area"></div>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
               </div>
             </div>
           </div>
-          <div class="col-lg-4">
-            <div class="panel panel-primary">
+          <div class="col-lg-8">
+            <div class="panel panel-custom">
               <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Summary</h3>
+                <h3 class="panel-title">Your Weight Over Time</h3>
               </div>
               <div class="panel-body">
+                <div id="morris-chart-area"></div>
               </div>
             </div>
           </div>
@@ -28,61 +29,62 @@
         {% else %}
       
         <div class="row">
-        <div class="col-lg-4 auth-at-home col-lg-offset-8">
-            <h3>{% trans %}Login{% endtrans %}</h3>
-            <form id="form_login_user" action="{{ uri_for("login") }}" method="post">
-                <fieldset class="well">
+        <div class="col-lg-4 well">
+            <h3>{% trans %}Login with:{% endtrans %}</h3>
+            <!--<form id="form_login_user" action="{{ uri_for("login") }}" method="post">
+                <fieldset>
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
                     <div class="control-group">
                         <label class="controls">
-                            <input class="focused required" name="username" id="l_username" type="text" placeholder="{% trans %}Username or Email{% endtrans %}">
+                            <input class="focused required form-control" name="username" id="l_username" type="text" placeholder="{% trans %}Username or Email{% endtrans %}">
                         </label>
                     </div>
                     <div class="control-group">
-                        <div class="controls row-fluid">
-                            <label class="span8">
-                                <input class="focused required" name="password" id="l_password" type="password" placeholder="{% trans %}Password{% endtrans %}">
-                            </label>
-                            <label class="span4">
-                                <button type="submit" class="btn btn-primary btn-login">{% trans %}Login{% endtrans %}</button>
-                            </label>
-                        </div>
+                        <label class="controls">
+                            <input class="focused required form-control" name="password" id="l_password" type="password" placeholder="{% trans %}Password{% endtrans %}">
+                        </label>
+                    </div>
+                    <div class="control-group">
+                        <label class="controls">
+                            <button type="submit" class="btn btn-primary btn-login form-control">{% trans %}Login{% endtrans %}</button>
+                        </label>
                     </div>
                     <div>
                         <label class="checkbox">
                             <input type="checkbox" name="remember_me" id="remember_me" value="on">
-                            {% trans %}Remember me?{% endtrans %} <span class="separator"></span>
-                            <a href="{{ uri_for("password-reset") }}">{% trans %}Forgot your password?{% endtrans %}</a>
+                            {% trans %}Remember me?{% endtrans %} <a href="{{ uri_for("password-reset") }}">{% trans %}Forgot your password?{% endtrans %}</a>
                         </label>
+                        
+                        
                     </div>
+                    <a href="/social_login/google" class="social-btn social-btn-google" title="google">google</a>
                     {{ macros.federated_login(provider_info, provider_uris, enable_federated_login) }}
-
                 </fieldset>
             </form>
 
             <h3>{% trans %}Sign Up{% endtrans %}</h3>
             <form id="form_register" action="{{ uri_for("register") }}" method="post">
-                <fieldset class="well">
+                <fieldset>
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
                     <div class="control-group">
                         <label class="controls">
-                            <input class="focused required" name="username" id="username" type="text" placeholder="{% trans %}Username{% endtrans %}">
+                            <input class="focused required form-control" name="username" id="username" type="text" placeholder="{% trans %}Username{% endtrans %}">
                         </label>
                     </div>
                     <div class="control-group">
                         <label class="controls">
-                            <input class="focused required email" name="email" id="email" type="email" placeholder="{% trans %}Email{% endtrans %}">
+                            <input class="focused required email form-control" name="email" id="email" type="email" placeholder="{% trans %}Email{% endtrans %}">
                             <input type="hidden" name="country" value="">
                         </label>
                     </div>
                     <div class="control-group">
                         <label class="controls">
-                            <input class="focused required" name="password" id="password" type="password" placeholder="{% trans %}Password{% endtrans %}">
+                            <input class="focused required form-control" name="password" id="password" type="password" placeholder="{% trans %}Password{% endtrans %}">
                         </label>
                     </div>
                     <div class="control-group">
                         <label class="controls">
-                            <input class="focused required" name="c_password" id="c_password" type="password" placeholder="{% trans %}Confirm Password{% endtrans %}">
+                            <input class="focused required form-control" name="c_password" id="c_password" type="password" placeholder="{% trans %}Confirm Password{% endtrans %}">
                         </label>
                     </div>
                     <div class="control-group">
@@ -91,15 +93,25 @@
                         <button type="submit" class="btn btn-primary">{% trans %}Sign Up{% endtrans %}</button>
                     </div>
                 </fieldset>
-            </form>
+            </form>-->
+            
+            <a href="/social_login/google" class="social-btn social-btn-google" title="google"><!--<i class="fa fa-google-plus fa-fw"></i> Google+--><img class="google-plus-signin" src="/boilerplate/img/Red-signin_Google_base_20dp.png" onclick="click(this);"></a>
+            
+        </div>
+        <div class="col-lg-8">
+          <div class="jumbotron intro">
+            <h1>Hello, world!</h1>
+            <p>...</p>
+            <p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>
+          </div>
         </div>
     </div><!-- /row -->
     {% endif %}
+    
 
       </div><!-- /#page-wrapper -->
+    
 {% endblock %}
 {% block mediaJS %}
-    <!--<script src="/boilerplate/js/tablesorter/jquery.tablesorter.js"></script>
-    <script src="/boilerplate/js/tablesorter/tables.js"></script>-->
 
 {% endblock %}

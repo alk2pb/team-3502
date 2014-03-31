@@ -11,6 +11,11 @@
     
     <title>Team 3502</title>
 
+    <!-- Fonts -->
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+
     <!-- Bootstrap core CSS -->
     <link href="/boilerplate/css/bootstrap.css" rel="stylesheet">
     <!-- Bootstrap theme -->
@@ -26,7 +31,7 @@
   <body role="document" style="">
     {% block navbar %}
     <!-- Fixed navbar -->
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="navbar navbar-custom navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -35,18 +40,21 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">Bootstrap theme</a>
+          <a class="navbar-brand" href="/">Team 3502 - Smart Mat</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
+            <li{% if path == uri_for("about") %} class="active"{% endif %}>
+                <a href="{{ uri_for("about") }}">{% trans %}About{% endtrans %}</a>
+            </li>
             <li{% if path == uri_for("contact") %} class="active"{% endif %}>
                 <a href="{{ uri_for("contact") }}">{% trans %}Contact{% endtrans %}</a>
             </li>
-            {% if not user_id %}
+            <!--{% if not user_id %}
                 <li{% if path == uri_for("register") %} class="active"{% endif %}>
                     <a href="{{ uri_for("register") }}">{% trans %}Sign Up{% endtrans %}</a>
                 </li>
-            {% endif %}
+            {% endif %}-->
             {% if user_id %}
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">@{{ username }} <b class="caret"></b></a>
@@ -62,7 +70,10 @@
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans %}Login{% endtrans %} <b class="caret"></b></a>
                     <ul class="dropdown-menu dropdown-login">
                       <li>
-                      <form id="form_login_user" action="{{ uri_for("login") }}" method="post"
+                      <label class="control-label">
+                          {% trans %}Login with{% endtrans %}:
+                      </label>
+                      <!--<form id="form_login_user" action="{{ uri_for("login") }}" method="post"
                             class="auth-at-dropdown">
                           <fieldset>
                               <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
@@ -71,25 +82,27 @@
                                   <label class="control-label" for="l_username">
                                       {% trans %}Username or Email{% endtrans %}:
                                   </label>
-                                  <div class="controls">
-                                      <input class="input-xlarge focused required" id="l_username"
-                                             name="username" type="text" value="">
-                                  </div>
+                                  <label class="controls">
+                                      <input class="input-xlarge focused required form-control" id="l_username"
+                                             name="username" type="text" placeholder="{% trans %}Username or Email{% endtrans %}">
+                                  </label>
                               </div>
                               <div class="control-group">
                                   <label class="control-label" for="l_password">
                                       {% trans %}Password{% endtrans %}:
                                   </label>
-                                  <div class="controls">
-                                      <input class="input-xlarge focused required" id="l_password"
-                                             name="password" type="password" value="">
-                                  </div>
+                                  <label class="controls">
+                                      <input class="input-xlarge focused required form-control" id="l_password"
+                                             name="password" type="password" placeholder="{% trans %}Password{% endtrans %}">
+                                  </label>
                               </div>
                               <div class="control-group row-fluid">
                                   <label class="checkbox span7">
                                       <input type="checkbox" name="remember_me" id="remember_me"
                                              value="on">
                                       {% trans %}Remember me?{% endtrans %}
+                                      <a href="{{ uri_for("password-reset") }}">
+                                      {% trans %}Forgot your password?{% endtrans %}</a>
                                   </label>
 
                                   <div class="span5">
@@ -98,13 +111,13 @@
                                   </div>
                               </div>
                               <div class="control-group">
-                                  <a href="{{ uri_for("password-reset") }}">
-                                      {% trans %}Forgot your password?{% endtrans %}</a>
+                                  
                               </div>
                               {{ macros.federated_login(provider_info, provider_uris, enable_federated_login) }}
 
                           </fieldset>
-                      </form>
+                      </form>-->
+                      <a href="/social_login/google" class="social-btn social-btn-google" title="google"><!--<i class="fa fa-google-plus fa-fw"></i> Google+--><img class="google-plus-signin" src="/boilerplate/img/Red-signin_Google_base_20dp.png" onclick="click(this);"></a>
                       </li>
                   </ul>
               </li>
@@ -132,7 +145,36 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     <script src="http://cdn.oesmith.co.uk/morris-0.4.3.min.js"></script>
     <script src="/boilerplate/js/chart-data-morris.js"></script>
-  
+    
+    <script type="text/javascript">
+      (function() {
+       var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+       po.src = 'https://apis.google.com/js/client:plusone.js';
+       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+     })();
+    </script>
+    
+    <script>
+      function hover(element) {
+          element.setAttribute('src', '/boilerplate/img/Red-signin_Google_hover_20dp.png');
+      }
+      function unhover(element) {
+          element.setAttribute('src', '/boilerplate/img/Red-signin_Google_base_20dp.png');
+      }
+      function click(element) {
+          element.setAttribute('src', '/boilerplate/img/Red-signin_Google_hover_20dp.png');
+      }
+      
+      $('.google-plus-signin').mouseout(function() {
+        $(this).attr("src", '/boilerplate/img/Red-signin_Google_base_20dp.png');
+      });
+      $('.google-plus-signin').mouseover(function() {
+        $(this).attr("src", '/boilerplate/img/Red-signin_Google_hover_20dp.png');
+      });
+      $('.google-plus-signin').mousedown(function() {
+        $(this).attr("src", '/boilerplate/img/Red-signin_Google_press_20dp.png');
+      });
+    </script>
 
   </body>
   
