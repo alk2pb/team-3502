@@ -24,6 +24,7 @@
     
     <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">
     <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">
+    <link href="http://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
     
     <script src="/boilerplate/js/libs/modernizr-2.7.1.min.js"></script>
   </head>
@@ -116,7 +117,7 @@
 
                           </fieldset>
                       </form>-->
-                      <a href="/social_login/google" class="social-btn social-btn-google" title="google"><!--<i class="fa fa-google-plus fa-fw"></i> Google+--><img class="google-plus-signin" id="google-plus-signin" src="/boilerplate/img/Red-signin_Google_base_20dp.png" onclick="click(this);"></a>
+                      <a href="/social_login/google" class="social-btn social-btn-google" title="google"><img class="google-plus-signin" width="200" id="google-plus-signin" src="/boilerplate/img/Red-signin_Long_base_44dp.png" onclick="click(this);"></a>
                       </li>
                   </ul>
               </li>
@@ -154,30 +155,31 @@
     </script>
     
     <script>
-      function hover(element) {
-          element.setAttribute('src', '/boilerplate/img/Red-signin_Google_hover_20dp.png');
-      }
-      function unhover(element) {
-          element.setAttribute('src', '/boilerplate/img/Red-signin_Google_base_20dp.png');
-      }
-      function click(element) {
-          element.setAttribute('src', '/boilerplate/img/Red-signin_Google_hover_20dp.png');
-      }
       
       $('.google-plus-signin').mouseout(function() {
-        $(this).attr("src", '/boilerplate/img/Red-signin_Google_base_20dp.png');
+        $(this).attr("src", '/boilerplate/img/Red-signin_Long_base_44dp.png');
       });
       $('.google-plus-signin').mouseover(function() {
-        $(this).attr("src", '/boilerplate/img/Red-signin_Google_hover_20dp.png');
+        $(this).attr("src", '/boilerplate/img/Red-signin_Long_hover_44dp.png');
       });
+      /*
       $('.google-plus-signin').click(function() {
-        $(this).attr("src", '/boilerplate/img/Red-signin_Google_press_20dp.png');
+        $(this).attr("src", '/boilerplate/img/Red-signin_Google_press_44dp.png');
         var href = $('.social-btn-google').attr('href');
 
              // Delay setting the location for one second
         setTimeout(function() {window.location = href}, 10);
         return false;
-      });
+      });*/
+    </script>
+    
+    <!-- Place this asynchronous JavaScript just before your </body> tag -->
+    <script type="text/javascript">
+      (function() {
+       var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+       po.src = 'https://apis.google.com/js/client:plusone.js';
+       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+     })();
     </script>
 
   </body>
