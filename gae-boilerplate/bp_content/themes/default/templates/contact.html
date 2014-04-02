@@ -10,8 +10,15 @@
 {% block content %}
 <div id="page-wrapper">
   <div class="row">
-    <div class="col-lg-4 well">
-      <form id="form_contact" action="{{ url|safe }}" method="post" class="form-horizontal">
+    <div class="col-lg-8">
+      <div class="jumbotron intro">
+        <h1>Hello, world!</h1>
+        <p>...</p>
+        <p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <form id="form_contact" action="{{ url|safe }}" method="post" class="well">
           <fieldset>
               <input type="hidden" name="exception" value="{{ exception|e }}">
               <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
@@ -23,13 +30,6 @@
               </div>
           </fieldset>
       </form>
-    </div>
-    <div class="col-lg-8">
-      <div class="jumbotron intro">
-        <h1>Hello, world!</h1>
-        <p>...</p>
-        <p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>
-      </div>
     </div>
   </div>
 </div>

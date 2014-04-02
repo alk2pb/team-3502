@@ -4,16 +4,6 @@
     <div id="page-wrapper">
         {% if user_id %}
         <div class="row">
-          <div class="col-lg-4">
-            <div class="panel panel-custom">
-              <div class="panel-heading">
-                <h3 class="panel-title">Summary</h3>
-              </div>
-              <div class="panel-body">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </div>
-            </div>
-          </div>
           <div class="col-lg-8">
             <div class="panel panel-custom">
               <div class="panel-heading">
@@ -24,12 +14,30 @@
               </div>
             </div>
           </div>
+          <div class="col-lg-4">
+            <div class="panel panel-custom">
+              <div class="panel-heading">
+                <h3 class="panel-title">Summary</h3>
+              </div>
+              <div class="panel-body">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </div>
+            </div>
+          </div>
         </div><!-- /.row -->
         
         {% else %}
       
         <div class="row">
-        <div class="col-lg-4 well">
+        <div class="col-lg-8">
+          <div class="jumbotron intro">
+            <h1>Hello, world!</h1>
+            <p>...</p>
+            <p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="well">
             <h3>{% trans %}Login with:{% endtrans %}</h3>
             <!--<form id="form_login_user" action="{{ uri_for("login") }}" method="post">
                 <fieldset>
@@ -96,13 +104,6 @@
             </form>-->
             
             <a href="/social_login/google" class="social-btn social-btn-google" title="google"><!--<i class="fa fa-google-plus fa-fw"></i> Google+--><img class="google-plus-signin" src="/boilerplate/img/Red-signin_Google_base_20dp.png" onclick="click(this);"></a>
-            
-        </div>
-        <div class="col-lg-8">
-          <div class="jumbotron intro">
-            <h1>Hello, world!</h1>
-            <p>...</p>
-            <p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>
           </div>
         </div>
     </div><!-- /row -->

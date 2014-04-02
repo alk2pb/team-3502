@@ -5,34 +5,43 @@
 {% endblock %}
 
 {% block content %}
-    <div id="edit_profile" class="well form-horizontal">
-        <fieldset>
-            <form id="form_edit_profile" action="{{ url|safe }}" method="post">
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
-                {{ macros.field(form.username, label=_("Username"), placeholder=_("Enter your")+" "+_("Username"), class="input-xlarge focused required") }}
-                {{ macros.field(form.name, label=_("Name"), placeholder=_("Enter your")+" "+_("Name"), class="input-xlarge focused") }}
-                {{ macros.field(form.last_name, label=_("Last Name"), placeholder=_("Enter your")+" "+_("Last Name"), class="input-xlarge focused") }}
-                {{ macros.field(form.country, label=_("Country")) }}
-                {{ macros.field(form.tz, label=_("Timezone")) }}
-                <div class="control-group">
-                    <label class="control-label">{% trans %}Email{% endtrans %}:</label>
-                    <div class="controls">
-                        {{ email }} (<a href="{{ uri_for('edit-email') }}">{% trans %}Change your email{% endtrans %}</a>)
-                    </div>
-                </div>
-                <div class="control-group">
-                    <div class="controls">
-                        <a href="{{ uri_for("edit-password") }}">{% trans %}Change your password{% endtrans %}</a>
-                    </div>
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">{% trans %}Update Profile{% endtrans %}</button> <a href="{{ uri_for("delete-account") }}" class="btn btn-danger">{% trans %}Delete Account{% endtrans %}</a>
-                </div>
+  <div id="page-wrapper">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="jumbotron intro">
+          <h1>Hello, world!</h1>
+          <p>...</p>
+          <p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>
+        </div>
+      </div>
+      <div id="edit_profile" class="col-lg-4">
+          <fieldset class="well">
+              <form id="form_edit_profile" action="{{ url|safe }}" method="post">
+                  <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                  {{ macros.field(form.username, label=_("Username"), placeholder=_("Enter your")+" "+_("Username"), class="input-xlarge focused required form-control") }}
+                  {{ macros.field(form.name, label=_("Name"), placeholder=_("Enter your")+" "+_("Name"), class="input-xlarge focused form-control") }}
+                  {{ macros.field(form.last_name, label=_("Last Name"), placeholder=_("Enter your")+" "+_("Last Name"), class="input-xlarge focused form-control") }}
+                  <!--{{ macros.field(form.country, label=_("Country")) }}
+                  {{ macros.field(form.tz, label=_("Timezone")) }}-->
+                  <div class="control-group">
+                      <label class="control-label">{% trans %}Current Email{% endtrans %}: </label>
+                      <div class="controls">
+                          <label class="control-label">{{ email }} (<a href="{{ uri_for('edit-email') }}">{% trans %}Change your email{% endtrans %}</a>)</label>
+                      </div>
+                  </div>
+                  <div class="control-group">
+                      <div class="controls">
+                          <label class="control-label"><a href="{{ uri_for("edit-password") }}">{% trans %}Change your password{% endtrans %}</a></label>
+                      </div>
+                  </div>
+                  <div class="form-actions update">
+                      <button type="submit" class="btn btn-primary">{% trans %}Update Profile{% endtrans %}</button> <a href="{{ uri_for("delete-account") }}" class="btn btn-danger">{% trans %}Delete Account{% endtrans %}</a>
+                  </div>
             </form>
             {% if enable_federated_login %}
 	            {% if used_providers %}
 	                <div id="third_party_login" class="existing-accociation">
-	                    <h4>{% trans %}Existing social association{% endtrans %}:</h4>
+	                    <h4>{% trans %}Associated Accounts{% endtrans %}:</h4>
 	                    <table class=" social-login-icons">
 	                        {% for provider in used_providers %}
 	                            <tr>
@@ -63,6 +72,8 @@
             {% endif %}
         </fieldset>
     </div>
+  </div>
+</div>
 
 {% endblock %}
 

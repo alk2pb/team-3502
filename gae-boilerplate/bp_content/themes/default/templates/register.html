@@ -7,8 +7,17 @@
 {% block content %}
 <div id="page-wrapper">
   <div class="row">
-    <div class="col-lg-4 well">
-      <form id="form_register" action="{{ url|safe }}" method="post" class="form-horizontal">
+    <div class="col-lg-8">
+      <div class="jumbotron intro">
+        <h1>Hello, world!</h1>
+        <p>...</p>
+        <p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="well">
+        <h3>{% trans %}Login with{% endtrans %}:</h3>
+      <!--<form id="form_register" action="{{ url|safe }}" method="post" class="form-horizontal">
           <fieldset>
               <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
               {{ macros.field(form.username, label=_("Username"), placeholder=_("Enter your")+" "+_("Username"), class="input-xlarge focused required form-control") }}
@@ -17,19 +26,14 @@
               {{ macros.field(form.email, label=_("Email"), placeholder=_("Enter your")+" "+_("Email"), class="input-xlarge focused required email form-control", type="email") }}
               {{ macros.field(form.password, label=_("Password"), placeholder=_("Enter your")+" "+_("Password"), class="input-xlarge focused required form-control", type="password") }}
               {{ macros.field(form.c_password, label=_("Confirm Password"), placeholder=_("Confirm Password"), class="input-xlarge focused required form-control", type="password") }}
-              <!--{{ macros.field(form.country, label=_("Country"), class="form-control") }}
-              {{ macros.field(form.tz, label=_("Timezone"), class="form-control") }}-->
+              {{ macros.field(form.country, label=_("Country"), class="form-control") }}
+              {{ macros.field(form.tz, label=_("Timezone"), class="form-control") }}
               <div class="form-actions">
                   <button type="submit" class="btn btn-primary">{% trans %}Sign Up{% endtrans %}</button>
               </div>
           </fieldset>
-      </form>
-    </div>
-    <div class="col-lg-8">
-      <div class="jumbotron intro">
-        <h1>Hello, world!</h1>
-        <p>...</p>
-        <p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>
+      </form>-->
+        <a href="/social_login/google" class="social-btn social-btn-google" title="google"><img class="google-plus-signin" src="/boilerplate/img/Red-signin_Google_base_20dp.png" onclick="click(this);"></a>
       </div>
     </div>
   </div>
