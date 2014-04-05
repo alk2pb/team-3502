@@ -1,7 +1,5 @@
 #!/usr/bin/env python
-#
-# Copyright 2007 Google Inc.
-#
+##
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -14,17 +12,58 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+__author__ = 'Rodrigo Augosto (@coto)'
+__website__ = 'www.beecoss.com'
+
 import os
-from google.appengine.ext.webapp import template
+import sys
+# Third party libraries path must be fixed before importing webapp2
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'bp_includes/external'))
+
 import webapp2
 
-class MainHandler(webapp2.RequestHandler):
-    def get(self):
-        template_values = {}
-        
-        path = os.path.join(os.path.dirname(__file__), 'templates/index.html')
-        self.response.out.write(template.render(path, template_values))
+# Arduino to Database
+from google.appengine.ext import ndb
+import datetime
 
-app = webapp2.WSGIApplication([
-    ('/', MainHandler)
-], debug=True)
+class ArduinoSensorData(ndb.Model):
+    test = ndb.StringProperty()
+    test2 = ndb.StringProperty()
+    
+class ArduinoPost(webapp2.RequestHandler):
+    def post(self):
+        sensordata = self.request.get('test')
+        sensordata2 = ArduinoSensorData()
+        try:
+            sensordata2.test = 'test'
+            sensordata2.test2 = test
+            sensordata2.put()
+        except ValueError:
+            pass
+
+from bp_includes.lib.error_handler import handle_error
+from bp_includes import config as config_boilerplate
+
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'bp_content/themes/', os.environ['theme']))
+# Import Config Importing
+import config as config_theme
+
+# Routes Importing
+from bp_admin import routes as routes_admin
+from bp_includes import routes as routes_boilerplate
+import routes as routes_theme
+
+
+webapp2_config = config_boilerplate.config
+webapp2_config.update(config_theme.config)
+
+app = webapp2.WSGIApplication([('/arduino_post', ArduinoPost)], debug=os.environ['SERVER_SOFTWARE'].startswith('Dev'), config=webapp2_config)
+
+if not app.debug:
+    for status_int in app.config['error_templates']:
+        app.error_handlers[status_int] = handle_error
+
+routes_theme.add_routes(app)
+routes_boilerplate.add_routes(app)
+routes_admin.add_routes(app)
