@@ -23,6 +23,24 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'bp_includes/external
 
 import webapp2
 
+# Arduino to Database
+from google.appengine.ext import ndb
+import datetime
+
+class ArduinoSensorData(ndb.Model):
+    test = ndb.StringProperty()
+    test2 = ndb.StringProperty()
+    
+class ArduinoPost(webapp2.RequestHandler):
+    def post(self):
+        sensordata = self.request.get('test')
+        sensordata2 = ArduinoSensorData()
+        try:
+            sensordata2.test = 'test'
+            sensordata2.test2 = test
+            sensordata2.put()
+        except ValueError:
+            pass
 
 from bp_includes.lib.error_handler import handle_error
 from bp_includes import config as config_boilerplate
@@ -40,7 +58,7 @@ import routes as routes_theme
 webapp2_config = config_boilerplate.config
 webapp2_config.update(config_theme.config)
 
-app = webapp2.WSGIApplication(debug=os.environ['SERVER_SOFTWARE'].startswith('Dev'), config=webapp2_config)
+app = webapp2.WSGIApplication([('/arduino_post', ArduinoPost)], debug=os.environ['SERVER_SOFTWARE'].startswith('Dev'), config=webapp2_config)
 
 if not app.debug:
     for status_int in app.config['error_templates']:

@@ -28,12 +28,30 @@
                 <h4>{% trans %}Sign in using:{% endtrans %}</h4>
                 {% else %}
 #}
-                <h4>{% trans %}Or Sign in using:{% endtrans %}</h4>
-                <ul class="social-login-icons">
+                <!--<h4>{% trans %}Or Sign in using:{% endtrans %}</h4>-->
+                <!--<ul class="social-login-icons">
                     {% for p in provider_info if provider_uris[p] %}
                         <li><a href="{{ provider_uris[p] }}" class="social-btn social-btn-{{ p }}" title="{{ p }}">{{ p }}</a></li>
                     {% endfor %}
-                </ul>
+                </ul>-->
+                <div class="SignInWrapper">
+                  <a href="/social_login/google" title="google">
+                    <div id="g-customBtn" class="customGPlusSignIn">
+                      <span class="g-social-icon"><i class="fa fa-google-plus fa-fw login-icon center-block"></i></span>
+                      
+                      <span class="social-buttonText">Google</span>
+                    </div>
+                  </a>
+                </div>
+                <div class="SignInWrapper">
+                  <a href="/social_login/facebook" title="facebook">
+                    <div id="f-customBtn" class="customFacebookSignIn">
+                      <span class="f-social-icon"><i class="fa fa-facebook fa-fw login-icon center-block"></i></span>
+                      
+                      <span class="social-buttonText">Facebook</span>
+                    </div>
+                  </a>
+                </div>
             </div>
 {% endif %}
 {%- endmacro %}

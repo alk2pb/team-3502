@@ -990,8 +990,8 @@ class EditProfileHandler(BaseHandler):
             self.form.username.data = user_info.username
             self.form.name.data = user_info.name
             self.form.last_name.data = user_info.last_name
-            self.form.country.data = user_info.country
-            self.form.tz.data = user_info.tz
+            #self.form.country.data = user_info.country
+            #self.form.tz.data = user_info.tz
             providers_info = user_info.get_social_providers_info()
             if not user_info.password:
                 params['local_account'] = False
@@ -999,25 +999,24 @@ class EditProfileHandler(BaseHandler):
                 params['local_account'] = True
             params['used_providers'] = providers_info['used']
             params['unused_providers'] = providers_info['unused']
-            params['country'] = user_info.country
-            params['tz'] = user_info.tz
+            #params['country'] = user_info.country
+            #params['tz'] = user_info.tz
 
         return self.render_template('edit_profile.html', **params)
 
     def post(self):
         """ Get fields from POST dict """
-
+        
         if not self.form.validate():
             return self.get()
         username = self.form.username.data.lower()
         name = self.form.name.data.strip()
         last_name = self.form.last_name.data.strip()
-        country = self.form.country.data
-        tz = self.form.tz.data
+        #country = self.form.country.data
+        #tz = self.form.tz.data
 
         try:
             user_info = self.user_model.get_by_id(long(self.user_id))
-
             try:
                 message = ''
                 # update username if it has changed and it isn't already taken
@@ -1047,8 +1046,8 @@ class EditProfileHandler(BaseHandler):
                         return self.get()
                 user_info.name = name
                 user_info.last_name = last_name
-                user_info.country = country
-                user_info.tz = tz
+                #user_info.country = country
+                #user_info.tz = tz
                 user_info.put()
                 message += " " + _('Thanks, your settings have been saved.')
                 self.add_message(message, 'success')
@@ -1058,7 +1057,6 @@ class EditProfileHandler(BaseHandler):
                 logging.error('Error updating profile: ' + e)
                 message = _('Unable to update profile. Please try again later.')
                 self.add_message(message, 'error')
-                return self.get()
 
         except (AttributeError, TypeError), e:
             login_error_message = _('Your session has expired.')
@@ -1068,8 +1066,8 @@ class EditProfileHandler(BaseHandler):
     @webapp2.cached_property
     def form(self):
         f = forms.EditProfileForm(self)
-        f.country.choices = self.countries_tuple
-        f.tz.choices = self.tz
+        #f.country.choices = self.countries_tuple
+        #f.tz.choices = self.tz
         return f
 
 
@@ -1083,6 +1081,12 @@ class EditPasswordHandler(BaseHandler):
         """ Returns a simple HTML form for editing password """
 
         params = {}
+        user_info = self.user_model.get_by_id(long(self.user_id))
+        if user_info.password is not None:
+            params['pass'] = True
+        else:
+            params['pass'] = False
+            
         return self.render_template('edit_password.html', **params)
 
     def post(self):
@@ -1090,45 +1094,78 @@ class EditPasswordHandler(BaseHandler):
 
         if not self.form.validate():
             return self.get()
-        current_password = self.form.current_password.data.strip()
+        user_info = self.user_model.get_by_id(long(self.user_id))
+        if user_info.password is not None:
+            current_password = self.form.current_password.data.strip()
         password = self.form.password.data.strip()
 
         try:
-            user_info = self.user_model.get_by_id(long(self.user_id))
+            #user_info = self.user_model.get_by_id(long(self.user_id))
             auth_id = "own:%s" % user_info.username
-
-            # Password to SHA512
-            current_password = utils.hashing(current_password, self.app.config.get('salt'))
+            
+            #user_info = self.user_model.get_by_id(long(self.user_id))
+            if user_info.password is not None:
+                # Password to SHA512
+                current_password = utils.hashing(current_password, self.app.config.get('salt'))
             try:
-                user = self.user_model.get_by_auth_password(auth_id, current_password)
+                #user_info = self.user_model.get_by_id(long(self.user_id))
+                if user_info.password is not None:
+                    user = self.user_model.get_by_auth_password(auth_id, current_password)
                 # Password to SHA512
                 password = utils.hashing(password, self.app.config.get('salt'))
-                user.password = security.generate_password_hash(password, length=12)
-                user.put()
+                if user_info.password is not None:
+                    user.password = security.generate_password_hash(password, length=12)
+                    user.put()
+                else:
+                    user_info.password = security.generate_password_hash(password, length=12)
+                    user_info.put()
 
                 # send email
                 subject = self.app.config.get('app_name') + " Account Password Changed"
 
-                # load email's template
-                template_val = {
-                    "app_name": self.app.config.get('app_name'),
-                    "first_name": user.name,
-                    "username": user.username,
-                    "email": user.email,
-                    "reset_password_url": self.uri_for("password-reset", _full=True)
-                }
-                email_body_path = "emails/password_changed.txt"
-                email_body = self.jinja2.render_template(email_body_path, **template_val)
-                email_url = self.uri_for('taskqueue-send-email')
-                taskqueue.add(url=email_url, params={
-                    'to': user.email,
-                    'subject': subject,
-                    'body': email_body,
-                    'sender': self.app.config.get('contact_sender'),
-                })
-
-                #Login User
-                self.auth.get_user_by_password(user.auth_ids[0], password)
+                if user_info.password is not None:
+                    # load email's template
+                    template_val = {
+                        "app_name": self.app.config.get('app_name'),
+                        "first_name": user.name,
+                        "username": user.username,
+                        "email": user.email,
+                        "reset_password_url": self.uri_for("password-reset", _full=True)
+                    }
+                    email_body_path = "emails/password_changed.txt"
+                    email_body = self.jinja2.render_template(email_body_path, **template_val)
+                    email_url = self.uri_for('taskqueue-send-email')
+                    taskqueue.add(url=email_url, params={
+                        'to': user.email,
+                        'subject': subject,
+                        'body': email_body,
+                        'sender': self.app.config.get('contact_sender'),
+                    })
+    
+                    #Login User
+                    self.auth.get_user_by_password(user.auth_ids[0], password)
+                else:
+                    # load email's template
+                    template_val = {
+                        "app_name": self.app.config.get('app_name'),
+                        "first_name": user_info.name,
+                        "username": user_info.username,
+                        "email": user_info.email,
+                        "reset_password_url": self.uri_for("password-reset", _full=True)
+                    }
+                    email_body_path = "emails/password_changed.txt"
+                    email_body = self.jinja2.render_template(email_body_path, **template_val)
+                    email_url = self.uri_for('taskqueue-send-email')
+                    taskqueue.add(url=email_url, params={
+                        'to': user_info.email,
+                        'subject': subject,
+                        'body': email_body,
+                        'sender': self.app.config.get('contact_sender'),
+                    })
+    
+                    #Login User
+                    self.auth.get_user_by_password(user_info.auth_ids[0], password)
+                
                 self.add_message(_('Password changed successfully.'), 'success')
                 return self.redirect_to('edit-profile')
             except (InvalidAuthIdError, InvalidPasswordError), e:

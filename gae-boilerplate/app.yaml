@@ -7,7 +7,7 @@ threadsafe: true
 env_variables:
   theme: 'default'
 
-default_expiration: "30d"
+#default_expiration: "30d"
 
 skip_files:
 - ^(.*/)?app\.yaml

@@ -1,7 +1,7 @@
 {% extends base_layout %}
 
 {% block content %}
-    <div id="page-wrapper">
+    
         {% if user_id %}
         <div class="row">
           <div class="col-lg-8">
@@ -39,7 +39,7 @@
         <div class="col-lg-4">
           <div class="well">
             <h3>{% trans %}Login with:{% endtrans %}</h3>
-            <!--<form id="form_login_user" action="{{ uri_for("login") }}" method="post">
+            <form id="form_login_user" action="{{ uri_for("login") }}" method="post">
                 <fieldset>
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
                     <div class="control-group">
@@ -57,7 +57,7 @@
                             <button type="submit" class="btn btn-primary btn-login form-control">{% trans %}Login{% endtrans %}</button>
                         </label>
                     </div>
-                    <div>
+                    <div class="control-group">
                         <label class="checkbox">
                             <input type="checkbox" name="remember_me" id="remember_me" value="on">
                             {% trans %}Remember me?{% endtrans %} <a href="{{ uri_for("password-reset") }}">{% trans %}Forgot your password?{% endtrans %}</a>
@@ -65,7 +65,7 @@
                         
                         
                     </div>
-                    <a href="/social_login/google" class="social-btn social-btn-google" title="google">google</a>
+                    <h3>{% trans %}Or Login With:{% endtrans %}</h3>
                     {{ macros.federated_login(provider_info, provider_uris, enable_federated_login) }}
                 </fieldset>
             </form>
@@ -101,16 +101,33 @@
                         <button type="submit" class="btn btn-primary">{% trans %}Sign Up{% endtrans %}</button>
                     </div>
                 </fieldset>
-            </form>-->
+            </form>
             
-            <a href="/social_login/google" class="social-btn social-btn-google" title="google"><img class="google-plus-signin" width="200" id="google-plus-signin" src="/boilerplate/img/Red-signin_Long_base_44dp.png" onclick="click(this);"></a>
+            <!--<a href="/social_login/google" class="social-btn social-btn-google" title="google"><img class="google-plus-signin" width="200" id="google-plus-signin" src="/boilerplate/img/Red-signin_Long_base_44dp.png" onclick="click(this);"></a>-->
+              
+            <!-- In the callback, you would hide the gSignInWrapper element on a successful sign in
+            <div id="SignInWrapper">
+              <a href="/social_login/google" title="google">
+                <div id="g-customBtn">
+                  <span class="g-social-icon"><i class="fa fa-google-plus fa-fw login-icon center-block"></i></span>
+                  
+                  <span class="social-buttonText">Google</span>
+                </div>
+              </a>
+            </div>
+            <div id="SignInWrapper">
+              <a href="/social_login/facebook" title="facebook">
+                <div id="f-customBtn" class="customFacebookSignIn">
+                  <span class="f-social-icon"><i class="fa fa-facebook fa-fw login-icon center-block"></i></span>
+                  
+                  <span class="social-buttonText">Facebook</span>
+                </div>
+              </a>
+            </div>-->
           </div>
         </div>
     </div><!-- /row -->
     {% endif %}
-    
-
-      </div><!-- /#page-wrapper -->
     
 {% endblock %}
 {% block mediaJS %}

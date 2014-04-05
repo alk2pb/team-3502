@@ -33,7 +33,8 @@ config = {
     # Language codes defined under iso 639-1 http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
     # Territory codes defined under iso 3166-1 alpha-2 http://en.wikipedia.org/wiki/ISO_3166-1
     # disable i18n if locales array is empty or None
-    'locales': ['en_US', 'es_ES', 'it_IT', 'zh_CN', 'id_ID', 'fr_FR', 'de_DE', 'ru_RU', 'pt_BR', 'cs_CZ','vi_VN','nl_NL'],
+    #'locales': ['en_US', 'es_ES', 'it_IT', 'zh_CN', 'id_ID', 'fr_FR', 'de_DE', 'ru_RU', 'pt_BR', 'cs_CZ','vi_VN','nl_NL'],
+    'locales': [],
 
     # contact page email settings
     'contact_sender': "SENDER_EMAIL_HERE",
@@ -53,8 +54,8 @@ config = {
     # get your own consumer key and consumer secret by registering at https://developers.facebook.com/apps
     #Very Important: set the site_url= your domain in the application settings in the facebook app settings page
     # callback url must be: http://[YOUR DOMAIN]/login/facebook/complete
-    'fb_api_key': 'FACEBOOK_API_KEY',
-    'fb_secret': 'FACEBOOK_SECRET',
+    'fb_api_key': '287867134704428',
+    'fb_secret': '6cbd4b15d7b3fcdbe5b7745388aa3c3a',
 
     #Linkedin Login
     #Get you own api key and secret from https://www.linkedin.com/secure/developer

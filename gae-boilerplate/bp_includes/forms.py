@@ -33,6 +33,7 @@ class PasswordConfirmMixin(BaseForm):
     password = fields.TextField(_('Password'), [validators.Required(),
                                                 validators.Length(max=FIELD_MAXLENGTH, message=_(
                                                     "Field cannot be longer than %(max)d characters."))])
+    
     c_password = fields.TextField(_('Confirm Password'),
                                   [validators.Required(), validators.EqualTo('password', _('Passwords must match.')),
                                    validators.Length(max=FIELD_MAXLENGTH,
@@ -91,13 +92,13 @@ class RegisterForm(PasswordConfirmMixin, UsernameMixin, NameMixin, EmailMixin):
 
 
 class EditProfileForm(UsernameMixin, NameMixin):
-    country = fields.SelectField(_('Country'), choices=[])
-    tz = fields.SelectField(_('Timezone'), choices=[])
+    #country = fields.SelectField(_('Country'), choices=[])
+    #tz = fields.SelectField(_('Timezone'), choices=[])
     pass
 
 
 class EditPasswordForm(PasswordConfirmMixin):
-    current_password = fields.TextField(_('Password'), [validators.Required(),
+    current_password = fields.TextField(_('Password'), [
                                                         validators.Length(max=FIELD_MAXLENGTH, message=_(
                                                             "Field cannot be longer than %(max)d characters."))])
     pass
