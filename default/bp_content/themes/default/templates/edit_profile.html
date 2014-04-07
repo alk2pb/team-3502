@@ -14,7 +14,7 @@
         </div>
       </div>
       <div id="edit_profile" class="col-lg-4">
-          <fieldset class="well">
+          <fieldset class="well custom-well">
               <form id="form_edit_profile" action="{{ url|safe }}" method="post">
                   <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
                   {{ macros.field(form.username, label=_("Username"), placeholder=_("Enter your")+" "+_("Username"), class="input-xlarge focused required form-control") }}

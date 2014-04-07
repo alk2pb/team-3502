@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="/boilerplate/assets/ico/favicon.ico">
     
-    <title>Team 3502</title>
+    <title>Discvry Template</title>
 
     <!-- Fonts -->
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -39,7 +39,7 @@
                     <i class="fa fa-bars"></i>
                 </button>
                 <a class="navbar-brand" href="/">
-                  Team 3502 - Smart Mat
+                  Discvry Template
                 </a>
             </div>
         <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
@@ -129,6 +129,7 @@
       </div>
     </div>
     {% endblock %}
+    
     {% if messages|safe %}
         {% for message in messages %}
             <p class="alert alert-{{ message[1]|safe }}">
@@ -137,11 +138,21 @@
             </p>
         {% endfor %}
     {% endif %}
+    
     <div class="container" role="main">
-      <div id="page-wrapper">
-        {% block content %}{% endblock %}
-      </div>
+      {% block content %}{% endblock %}
     </div> <!-- /container -->
+    
+    
+    {% block footer %}
+      <footer class="footer">
+        <div class="container">
+          <p class="text-muted">© Discvry, LLC 2014</p>
+        </div>
+      </footer>
+    {% endblock %}
+    
+    
 
 
     <!-- Bootstrap core JavaScript

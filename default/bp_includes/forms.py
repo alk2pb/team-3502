@@ -110,7 +110,7 @@ class EditEmailForm(BaseForm):
                                                     "Field must be between %(min)d and %(max)d characters long.")),
                                               validators.regexp(utils.EMAIL_REGEXP,
                                                                 message=_('Invalid email address.'))])
-    password = fields.TextField(_('Password'), [validators.Required(),
+    password = fields.TextField(_('Password'), [
                                                 validators.Length(max=FIELD_MAXLENGTH, message=_(
                                                     "Field cannot be longer than %(max)d characters."))])
     pass

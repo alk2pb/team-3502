@@ -1100,20 +1100,18 @@ class EditPasswordHandler(BaseHandler):
         password = self.form.password.data.strip()
 
         try:
-            #user_info = self.user_model.get_by_id(long(self.user_id))
-            auth_id = "own:%s" % user_info.username
-            
-            #user_info = self.user_model.get_by_id(long(self.user_id))
+            if user_info.username is not None:
+                auth_id = "own:%s" % user_info.username
+                
             if user_info.password is not None:
                 # Password to SHA512
                 current_password = utils.hashing(current_password, self.app.config.get('salt'))
             try:
-                #user_info = self.user_model.get_by_id(long(self.user_id))
-                if user_info.password is not None:
+                if user_info.password is not None and user_info.username is not None:
                     user = self.user_model.get_by_auth_password(auth_id, current_password)
                 # Password to SHA512
                 password = utils.hashing(password, self.app.config.get('salt'))
-                if user_info.password is not None:
+                if user_info.password is not None and user_info.username is not None:
                     user.password = security.generate_password_hash(password, length=12)
                     user.put()
                 else:
@@ -1123,7 +1121,7 @@ class EditPasswordHandler(BaseHandler):
                 # send email
                 subject = self.app.config.get('app_name') + " Account Password Changed"
 
-                if user_info.password is not None:
+                if user_info.password is not None and user_info.username is not None:
                     # load email's template
                     template_val = {
                         "app_name": self.app.config.get('app_name'),
@@ -1194,6 +1192,12 @@ class EditEmailHandler(BaseHandler):
         """ Returns a simple HTML form for edit email """
 
         params = {}
+        user_info = self.user_model.get_by_id(long(self.user_id))
+        if user_info.password is not None:
+            params['pass'] = True
+        else:
+            params['pass'] = False
+            
         if self.user:
             user_info = self.user_model.get_by_id(long(self.user_id))
             params['current_email'] = user_info.email
@@ -1202,78 +1206,140 @@ class EditEmailHandler(BaseHandler):
 
     def post(self):
         """ Get fields from POST dict """
-
+        
         if not self.form.validate():
             return self.get()
         new_email = self.form.new_email.data.strip()
-        password = self.form.password.data.strip()
+        user_info = self.user_model.get_by_id(long(self.user_id))
+        if user_info.password is not None:
+            password = self.form.password.data.strip()
 
         try:
             user_info = self.user_model.get_by_id(long(self.user_id))
-            auth_id = "own:%s" % user_info.username
+            if user_info.username is not None:
+                auth_id = "own:%s" % user_info.username
             # Password to SHA512
-            password = utils.hashing(password, self.app.config.get('salt'))
+            if user_info.password is not None:
+                password = utils.hashing(password, self.app.config.get('salt'))
 
             try:
-                # authenticate user by its password
-                user = self.user_model.get_by_auth_password(auth_id, password)
+                if user_info.password is not None and user_info.username is not None:
+                    # authenticate user by its password
+                    user = self.user_model.get_by_auth_password(auth_id, password)
+                
+                    # if the user change his/her email address
+                    if new_email != user.email:
+    
+                        # check whether the new email has been used by another user
+                        aUser = self.user_model.get_by_email(new_email)
+                        if aUser is not None:
+                            message = _("The email %s is already registered." % new_email)
+                            self.add_message(message, 'error')
+                            return self.redirect_to("edit-email")
+    
+                        # send email
+                        subject = _("%s Email Changed Notification" % self.app.config.get('app_name'))
+                        user_token = self.user_model.create_auth_token(self.user_id)
+                        confirmation_url = self.uri_for("email-changed-check",
+                                                        user_id=user_info.get_id(),
+                                                        encoded_email=utils.encode(new_email),
+                                                        token=user_token,
+                                                        _full=True)
+    
+                        # load email's template
+                        template_val = {
+                            "app_name": self.app.config.get('app_name'),
+                            "first_name": user.name,
+                            "username": user.username,
+                            "new_email": new_email,
+                            "confirmation_url": confirmation_url,
+                            "support_url": self.uri_for("contact", _full=True)
+                        }
+    
+                        old_body_path = "emails/email_changed_notification_old.txt"
+                        old_body = self.jinja2.render_template(old_body_path, **template_val)
+    
+                        new_body_path = "emails/email_changed_notification_new.txt"
+                        new_body = self.jinja2.render_template(new_body_path, **template_val)
+    
+                        email_url = self.uri_for('taskqueue-send-email')
+                        taskqueue.add(url=email_url, params={
+                            'to': user.email,
+                            'subject': subject,
+                            'body': old_body,
+                        })
+                        taskqueue.add(url=email_url, params={
+                            'to': new_email,
+                            'subject': subject,
+                            'body': new_body,
+                        })
+    
+                        # display successful message
+                        msg = _(
+                            "Please check your new email for confirmation. Your email will be updated after confirmation.")
+                        self.add_message(msg, 'success')
+                        return self.redirect_to('edit-profile')
 
-                # if the user change his/her email address
-                if new_email != user.email:
-
-                    # check whether the new email has been used by another user
-                    aUser = self.user_model.get_by_email(new_email)
-                    if aUser is not None:
-                        message = _("The email %s is already registered." % new_email)
-                        self.add_message(message, 'error')
+                    else:
+                        self.add_message(_("You didn't change your email."), "warning")
                         return self.redirect_to("edit-email")
-
-                    # send email
-                    subject = _("%s Email Changed Notification" % self.app.config.get('app_name'))
-                    user_token = self.user_model.create_auth_token(self.user_id)
-                    confirmation_url = self.uri_for("email-changed-check",
-                                                    user_id=user_info.get_id(),
-                                                    encoded_email=utils.encode(new_email),
-                                                    token=user_token,
-                                                    _full=True)
-
-                    # load email's template
-                    template_val = {
-                        "app_name": self.app.config.get('app_name'),
-                        "first_name": user.name,
-                        "username": user.username,
-                        "new_email": new_email,
-                        "confirmation_url": confirmation_url,
-                        "support_url": self.uri_for("contact", _full=True)
-                    }
-
-                    old_body_path = "emails/email_changed_notification_old.txt"
-                    old_body = self.jinja2.render_template(old_body_path, **template_val)
-
-                    new_body_path = "emails/email_changed_notification_new.txt"
-                    new_body = self.jinja2.render_template(new_body_path, **template_val)
-
-                    email_url = self.uri_for('taskqueue-send-email')
-                    taskqueue.add(url=email_url, params={
-                        'to': user.email,
-                        'subject': subject,
-                        'body': old_body,
-                    })
-                    taskqueue.add(url=email_url, params={
-                        'to': new_email,
-                        'subject': subject,
-                        'body': new_body,
-                    })
-
-                    # display successful message
-                    msg = _(
-                        "Please check your new email for confirmation. Your email will be updated after confirmation.")
-                    self.add_message(msg, 'success')
-                    return self.redirect_to('edit-profile')
-
                 else:
-                    self.add_message(_("You didn't change your email."), "warning")
-                    return self.redirect_to("edit-email")
+                    # if the user change his/her email address
+                    if new_email != user_info.email:
+    
+                        # check whether the new email has been used by another user
+                        aUser = self.user_model.get_by_email(new_email)
+                        if aUser is not None:
+                            message = _("The email %s is already registered." % new_email)
+                            self.add_message(message, 'error')
+                            return self.redirect_to("edit-email")
+    
+                        # send email
+                        subject = _("%s Email Changed Notification" % self.app.config.get('app_name'))
+                        user_token = self.user_model.create_auth_token(self.user_id)
+                        confirmation_url = self.uri_for("email-changed-check",
+                                                        user_id=user_info.get_id(),
+                                                        encoded_email=utils.encode(new_email),
+                                                        token=user_token,
+                                                        _full=True)
+    
+                        # load email's template
+                        template_val = {
+                            "app_name": self.app.config.get('app_name'),
+                            "first_name": user_info.name,
+                            "username": user_info.username,
+                            "new_email": new_email,
+                            "confirmation_url": confirmation_url,
+                            "support_url": self.uri_for("contact", _full=True)
+                        }
+    
+                        old_body_path = "emails/email_changed_notification_old.txt"
+                        old_body = self.jinja2.render_template(old_body_path, **template_val)
+    
+                        new_body_path = "emails/email_changed_notification_new.txt"
+                        new_body = self.jinja2.render_template(new_body_path, **template_val)
+    
+                        email_url = self.uri_for('taskqueue-send-email')
+                        taskqueue.add(url=email_url, params={
+                            'to': user_info.email,
+                            'subject': subject,
+                            'body': old_body,
+                        })
+                        taskqueue.add(url=email_url, params={
+                            'to': new_email,
+                            'subject': subject,
+                            'body': new_body,
+                        })
+    
+                        # display successful message
+                        msg = _(
+                            "Please check your new email for confirmation. Your email will be updated after confirmation.")
+                        self.add_message(msg, 'success')
+                        return self.redirect_to('edit-profile')
+
+                    else:
+                        self.add_message(_("You didn't change your email."), "warning")
+                        return self.redirect_to("edit-email")
 
 
             except (InvalidAuthIdError, InvalidPasswordError), e:
@@ -1303,8 +1369,8 @@ class PasswordResetHandler(BaseHandler):
             public_key=self.app.config.get('captcha_public_key'),
             use_ssl=(self.request.scheme == 'https'),
             error=None)
-        if self.app.config.get('captcha_public_key') == "PUT_YOUR_RECAPCHA_PUBLIC_KEY_HERE" or \
-                        self.app.config.get('captcha_private_key') == "PUT_YOUR_RECAPCHA_PUBLIC_KEY_HERE":
+        if self.app.config.get('captcha_public_key') == "6Leaa_ESAAAAAMnwvDcF5KqMQlWBx4lqJrySnPNg" or \
+                        self.app.config.get('captcha_private_key') == "6Leaa_ESAAAAAL5RkcGSk8QdT2XqkPlmln8nHxF2":
             chtml = '<div class="alert alert-error"><strong>Error</strong>: You have to ' \
                     '<a href="http://www.google.com/recaptcha/whyrecaptcha" target="_blank">sign up ' \
                     'for API keys</a> in order to use reCAPTCHA.</div>' \

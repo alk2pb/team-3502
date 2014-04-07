@@ -5,7 +5,6 @@
 {% endblock %}
 
 {% block content %}
-<div id="page-wrapper">
   <div class="row">
     <div class="col-lg-8">
       <div class="jumbotron intro">
@@ -15,7 +14,7 @@
       </div>
     </div>
     <div class="col-lg-4">
-      <div class="well">
+      <div class="well custom-well">
         <h3>{% trans %}Login with{% endtrans %}:</h3>
         <form id="form_register" action="{{ url|safe }}" method="post" class="form-horizontal">
           <fieldset>
@@ -36,7 +35,6 @@
       </div>
     </div>
   </div>
-</div>
 
 {% endblock %}
 

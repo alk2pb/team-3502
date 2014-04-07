@@ -2,132 +2,114 @@
 
 {% block content %}
     
-        {% if user_id %}
-        <div class="row">
-          <div class="col-lg-8">
-            <div class="panel panel-custom">
-              <div class="panel-heading">
-                <h3 class="panel-title">Your Weight Over Time</h3>
-              </div>
-              <div class="panel-body">
-                <div id="morris-chart-area"></div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="panel panel-custom">
-              <div class="panel-heading">
-                <h3 class="panel-title">Summary</h3>
-              </div>
-              <div class="panel-body">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </div>
-            </div>
-          </div>
-        </div><!-- /.row -->
-        
-        {% else %}
+{% if user_id %}
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="jumbotron">
+        <h1>Hello, world!</h1>
+        <p>...</p>
+        <p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>
+      </div>
+    </div>
+  </div><!-- /.row -->
+  <!-- Example row of columns -->
+  <div class="row">
+    <div class="col-md-4">
+      <h2>Heading</h2>
+      <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+      <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
+    </div>
+    <div class="col-md-4">
+      <h2>Heading</h2>
+      <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+      <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
+   </div>
+    <div class="col-md-4">
+      <h2>Heading</h2>
+      <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+      <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
+    </div>
+  </div>
+  
+{% else %}
       
-        <div class="row">
-        <div class="col-lg-8">
-          <div class="jumbotron intro">
-            <h1>Hello, world!</h1>
-            <p>...</p>
-            <p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="well">
-            <h3>{% trans %}Login with:{% endtrans %}</h3>
-            <form id="form_login_user" action="{{ uri_for("login") }}" method="post">
-                <fieldset>
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
-                    <div class="control-group">
-                        <label class="controls">
-                            <input class="focused required form-control" name="username" id="l_username" type="text" placeholder="{% trans %}Username or Email{% endtrans %}">
-                        </label>
-                    </div>
-                    <div class="control-group">
-                        <label class="controls">
-                            <input class="focused required form-control" name="password" id="l_password" type="password" placeholder="{% trans %}Password{% endtrans %}">
-                        </label>
-                    </div>
-                    <div class="control-group">
-                        <label class="controls">
-                            <button type="submit" class="btn btn-primary btn-login form-control">{% trans %}Login{% endtrans %}</button>
-                        </label>
-                    </div>
-                    <div class="control-group">
-                        <label class="checkbox">
-                            <input type="checkbox" name="remember_me" id="remember_me" value="on">
-                            {% trans %}Remember me?{% endtrans %} <a href="{{ uri_for("password-reset") }}">{% trans %}Forgot your password?{% endtrans %}</a>
-                        </label>
-                        
-                        
-                    </div>
-                    <h3>{% trans %}Or Login With:{% endtrans %}</h3>
-                    {{ macros.federated_login(provider_info, provider_uris, enable_federated_login) }}
-                </fieldset>
-            </form>
-
-            <h3>{% trans %}Sign Up{% endtrans %}</h3>
-            <form id="form_register" action="{{ uri_for("register") }}" method="post">
-                <fieldset>
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
-                    <div class="control-group">
-                        <label class="controls">
-                            <input class="focused required form-control" name="username" id="username" type="text" placeholder="{% trans %}Username{% endtrans %}">
-                        </label>
-                    </div>
-                    <div class="control-group">
-                        <label class="controls">
-                            <input class="focused required email form-control" name="email" id="email" type="email" placeholder="{% trans %}Email{% endtrans %}">
-                            <input type="hidden" name="country" value="">
-                        </label>
-                    </div>
-                    <div class="control-group">
-                        <label class="controls">
-                            <input class="focused required form-control" name="password" id="password" type="password" placeholder="{% trans %}Password{% endtrans %}">
-                        </label>
-                    </div>
-                    <div class="control-group">
-                        <label class="controls">
-                            <input class="focused required form-control" name="c_password" id="c_password" type="password" placeholder="{% trans %}Confirm Password{% endtrans %}">
-                        </label>
-                    </div>
-                    <div class="control-group">
-                        <input type="hidden" name="country">
-                        <input type="hidden" name="tz">
-                        <button type="submit" class="btn btn-primary">{% trans %}Sign Up{% endtrans %}</button>
-                    </div>
-                </fieldset>
-            </form>
-            
-            <!--<a href="/social_login/google" class="social-btn social-btn-google" title="google"><img class="google-plus-signin" width="200" id="google-plus-signin" src="/boilerplate/img/Red-signin_Long_base_44dp.png" onclick="click(this);"></a>-->
-              
-            <!-- In the callback, you would hide the gSignInWrapper element on a successful sign in
-            <div id="SignInWrapper">
-              <a href="/social_login/google" title="google">
-                <div id="g-customBtn">
-                  <span class="g-social-icon"><i class="fa fa-google-plus fa-fw login-icon center-block"></i></span>
-                  
-                  <span class="social-buttonText">Google</span>
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="jumbotron">
+        <h1>Hello, world!</h1>
+        <p>...</p>
+        <p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="well custom-well">
+        <h3>{% trans %}Login with:{% endtrans %}</h3>
+        <form id="form_login_user" action="{{ uri_for("login") }}" method="post">
+            <fieldset>
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                <div class="control-group">
+                    <label class="controls">
+                        <input class="focused required form-control" name="username" id="l_username" type="text" placeholder="{% trans %}Username or Email{% endtrans %}">
+                    </label>
                 </div>
-              </a>
-            </div>
-            <div id="SignInWrapper">
-              <a href="/social_login/facebook" title="facebook">
-                <div id="f-customBtn" class="customFacebookSignIn">
-                  <span class="f-social-icon"><i class="fa fa-facebook fa-fw login-icon center-block"></i></span>
-                  
-                  <span class="social-buttonText">Facebook</span>
+                <div class="control-group">
+                    <label class="controls">
+                        <input class="focused required form-control" name="password" id="l_password" type="password" placeholder="{% trans %}Password{% endtrans %}">
+                    </label>
                 </div>
-              </a>
-            </div>-->
-          </div>
+                <div class="control-group">
+                  <button type="submit" class="btn btn-primary btn-login">{% trans %}Login{% endtrans %}</button>
+                </div>
+                <div class="control-group">
+                    <label class="checkbox">
+                        <input type="checkbox" name="remember_me" id="remember_me" value="on">
+                        {% trans %}Remember me?{% endtrans %} <a href="{{ uri_for("password-reset") }}">{% trans %}Forgot your password?{% endtrans %}</a>
+                    </label>
+                    
+                    
+                </div>
+                <h3>{% trans %}Or Login With:{% endtrans %}</h3>
+                {{ macros.federated_login(provider_info, provider_uris, enable_federated_login) }}
+            </fieldset>
+        </form>
+        <div class="sign-up">
+          <h3>{% trans %}Sign Up{% endtrans %}</h3>
+          <form id="form_register" action="{{ uri_for("register") }}" method="post">
+              <fieldset>
+                  <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                  <div class="control-group">
+                      <label class="controls">
+                          <input class="focused required form-control" name="username" id="username" type="text" placeholder="{% trans %}Username{% endtrans %}">
+                      </label>
+                  </div>
+                  <div class="control-group">
+                      <label class="controls">
+                          <input class="focused required email form-control" name="email" id="email" type="email" placeholder="{% trans %}Email{% endtrans %}">
+                          <input type="hidden" name="country" value="">
+                      </label>
+                  </div>
+                  <div class="control-group">
+                      <label class="controls">
+                          <input class="focused required form-control" name="password" id="password" type="password" placeholder="{% trans %}Password{% endtrans %}">
+                      </label>
+                  </div>
+                  <div class="control-group">
+                      <label class="controls">
+                          <input class="focused required form-control" name="c_password" id="c_password" type="password" placeholder="{% trans %}Confirm Password{% endtrans %}">
+                      </label>
+                  </div>
+                  <div class="control-group">
+                      <input type="hidden" name="country">
+                      <input type="hidden" name="tz">
+                      <button type="submit" class="btn btn-primary">{% trans %}Sign Up{% endtrans %}</button>
+                  </div>
+              </fieldset>
+          </form>
         </div>
-    </div><!-- /row -->
-    {% endif %}
+      </div>
+    </div>
+  </div><!-- /row -->
+{% endif %}
     
 {% endblock %}
 {% block mediaJS %}

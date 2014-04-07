@@ -1,22 +1,18 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
 body {
   padding-top: 70px;
-  padding-bottom: 30px;
-  background: url(../img/bath.jpg) no-repeat center center fixed;
+  margin-bottom: 60px;
   background-color: #fff;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
   -o-background-size: cover;
-  color: #fff;
+  color: #000;
   font-family: 'Roboto',arial,sans-serif;
-}
-
-#wrapper {
-  padding-left: 0;
-}
-
-#page-wrapper {
-  width: 100%;
 }
 
 .dropdown-login {
@@ -26,11 +22,6 @@ body {
 
 #form_login_user {
   background: transparent;
-}
-
-.well {
-  background-color: rgba(0,0,0,.4);
-  border:none;
 }
 
 /* Links */
@@ -43,7 +34,7 @@ a {
 
 a:hover,
 a:focus {
-    color: #fff;
+    color: #000;
     text-decoration: none;
 }
 
@@ -68,7 +59,7 @@ a:focus {
     margin-bottom: 0;
     border-bottom: 1px solid rgba(255,255,255,.3);
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
-    background-color: #000;
+    background-color: #222;
 }
 
 .navbar-brand {
@@ -137,6 +128,9 @@ a:focus {
         text-transform: none;
         color: #999;
         text-decoration: none;
+        -webkit-transition: color .3s ease-in-out;
+        -moz-transition: color .3s ease-in-out;
+        transition: color .3s ease-in-out;
     }
     
     .navbar-custom .nav .dropdown .dropdown-menu a:hover,
@@ -150,22 +144,6 @@ a:focus {
   color:#000;
   font-family: 'Roboto',arial,sans-serif;
   text-transform: none;
-}
-
-.intro {
-  background: rgba(0,0,0,.4);
-}
-
-.panel-body {
-  color: #fff;
-}
-
-.panel-custom {
-  background-color: rgba(0,0,0,.4);
-}
-
-.panel {
-  background-color: rgba(0,0,0,.4);
 }
 
 /* Google Plus Button */
@@ -235,4 +213,36 @@ a:focus {
 
 .social-login {
   margin-top: 10px;
+}
+
+.footer p {
+  margin: 20px 0;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+.custom-well {
+  border: none;
+  box-shadow: none;
+  background-color: #eee;
+  padding: 30px;
+}
+
+.custom-well h3 {
+  margin-top: 0px;
+}
+
+.sign-up {
+  margin-top: 20px;
+}
+
+.controls {
+  width: 100%;
 }

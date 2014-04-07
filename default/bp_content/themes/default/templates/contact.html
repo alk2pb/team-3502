@@ -8,7 +8,6 @@
 {% endblock %}
 
 {% block content %}
-<div id="page-wrapper">
   <div class="row">
     <div class="col-lg-8">
       <div class="jumbotron intro">
@@ -18,7 +17,7 @@
       </div>
     </div>
     <div class="col-lg-4">
-      <form id="form_contact" action="{{ url|safe }}" method="post" class="well">
+      <form id="form_contact" action="{{ url|safe }}" method="post" class="well custom-well">
           <fieldset>
               <input type="hidden" name="exception" value="{{ exception|e }}">
               <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
@@ -32,7 +31,6 @@
       </form>
     </div>
   </div>
-</div>
 {% endblock %}
 
 {% block mediaJS %}
