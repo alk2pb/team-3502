@@ -246,3 +246,7 @@ a:focus {
 .controls {
   width: 100%;
 }
+
+.panel-custom {
+  background-color: #eee;
+}
