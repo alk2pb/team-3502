@@ -1523,7 +1523,15 @@ class HomeRequestHandler(RegisterBaseHandler):
 
     def get(self):
         """ Returns a simple HTML form for home """
-        params = {}
+        
+        weighttimedata = "["
+        weighttimedata += "{ d: '" + "2012-10-01" + "', weight: " + "160" + " },"
+        weighttimedata += "{ d: '2012-10-02', weight: 161 },{ d: '2012-10-03', weight: 163 },{ d: '2012-10-04', weight: 159 },{ d: '2012-10-05', weight: 160 },{ d: '2012-10-06', weight: 165 },{ d: '2012-10-07', weight: 163 },{ d: '2012-10-08', weight: 164 },{ d: '2012-10-09', weight: 163 },{ d: '2012-10-10', weight: 160 },{ d: '2012-10-11', weight: 157 },{ d: '2012-10-12', weight: 160 },{ d: '2012-10-13', weight: 160 },{ d: '2012-10-14', weight: 161 },{ d: '2012-10-15', weight: 162 },{ d: '2012-10-16', weight: 160 },{ d: '2012-10-17', weight: 161 },{ d: '2012-10-18', weight: 163 },{ d: '2012-10-19', weight: 159 },{ d: '2012-10-20', weight: 160 },{ d: '2012-10-21', weight: 165 },{ d: '2012-10-22', weight: 163 },{ d: '2012-10-23', weight: 164 },{ d: '2012-10-24', weight: 163 },{ d: '2012-10-25', weight: 160 },{ d: '2012-10-26', weight: 157 },{ d: '2012-10-27', weight: 160 },{ d: '2012-10-28', weight: 160 },{ d: '2012-10-29', weight: 161 },{ d: '2012-10-30', weight: 162 },{ d: '2012-10-31', weight: 162 },]"
+        
+        params = {
+            'data': weighttimedata
+        }
+        
         return self.render_template('home.html', **params)
 
 
