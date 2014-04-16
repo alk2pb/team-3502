@@ -28,17 +28,21 @@ from google.appengine.ext import ndb
 import datetime
 
 class ArduinoSensorData(ndb.Model):
-    test = ndb.StringProperty()
-    test2 = ndb.StringProperty()
+    #test = ndb.StringProperty()
+    weight = ndb.IntegerProperty(default=0)
+    timestamp = ndb.DateTimeProperty(auto_now_add=True)
     
 class ArduinoPost(webapp2.RequestHandler):
     def post(self):
-        sensordata = self.request.get('test')
-        sensordata2 = ArduinoSensorData()
+        #sensordata = self.request.get('test')
+        sensordata = ArduinoSensorData()
         try:
-            sensordata2.test = 'test'
-            sensordata2.test2 = test
-            sensordata2.put()
+            #sensordata.test = 'test'
+            #sensordata.test2 = test
+            weight = int(self.request.get('weight'))
+            sensordata.weight = weight
+            sensordata.timestamp = datetime.datetime.now()
+            sensordata.put()
         except ValueError:
             pass
 

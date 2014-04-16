@@ -51,7 +51,7 @@ handlers:
 
 - url: /(\w*)/(apple-touch-icon.*\.(png))
   static_files: bp_content/themes/\1/static/\2
-  upload: bp_content/themes/(\w*)/static/(apple-touch-icon.*\.(png))
+  upload: bp_content/themes/(\w*)/static/favicon.ico
 
 - url: /(robots\.txt|humans\.txt|sitemap\.xml|crossdomain\.xml)
   script: main.app
