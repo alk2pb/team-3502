@@ -4,16 +4,6 @@
     
 {% if user_id %}
   <div class="row">
-    <div class="col-lg-12">
-      <div class="jumbotron">
-        <h1>Hello, world!</h1>
-        <p>...</p>
-        <p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>
-      </div>
-    </div>
-  </div><!-- /.row -->
-  <!-- Example row of columns -->
-  <div class="row">
     <div class="col-md-8">
       <div class="panel panel-custom">
         <div class="panel-heading">
@@ -25,9 +15,20 @@
       </div>
     </div>
     <div class="col-md-4">
-      <h2>Heading</h2>
-      <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-      <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
+      <h2>At a Glance</h2>
+      <ul>
+        <li>Since the last time you visited</li>
+        <li>Progress to goal</li>
+        <li>Set a goal</li>
+      </ul>
+      <h2>Recommendations</h2>
+      <ul>
+        <li>...</li>
+      </ul>
+      <h2>Download Data</h2>
+      <ul>
+        <li>...</li>
+      </ul>
     </div>
   </div>
   
@@ -124,12 +125,20 @@
         // The name of the data record attribute that contains x-visitss.
         xkey: 'd',
         // A list of names of data record attributes that contain y-visitss.
-        ykeys: ['weight'],
+        ykeys: ['weight', 'bmi'],
         // Labels for the ykeys -- will be displayed when you hover over the
         // chart.
-        labels: ['weight'],
+        labels: ['weight', 'bmi'],
         // Disables line smoothing
         smooth: false,
+        // x axis label
+        xLabels: 'day',
+        // Disables area fill
+        fillOpacity: 0.0,
+        // Add a goal
+        goals: [150],
+        goalStrokeWidth: '3px',
+        goalLineColors: ['green'],
       });
     </script>
 {% endblock %}
