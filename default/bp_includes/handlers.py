@@ -24,6 +24,7 @@ from google.appengine.api.datastore_errors import BadValueError
 from google.appengine.runtime import apiproxy_errors
 from github import github
 from linkedin import linkedin
+from google.appengine.ext import ndb
 
 # local application/library specific imports
 import models
@@ -758,14 +759,18 @@ class RegisterHandler(BaseHandler):
         """ Get fields from POST dict """
 
         if not self.form.validate():
+            self.add_message('test', 'error')
             return self.get()
         username = self.form.username.data.lower()
         name = self.form.name.data.strip()
         last_name = self.form.last_name.data.strip()
         email = self.form.email.data.lower()
         password = self.form.password.data.strip()
-        country = self.form.country.data
-        tz = self.form.tz.data
+        #country = self.form.country.data
+        #tz = self.form.tz.data
+        age = self.form.age.data
+        height = self.form.height.data
+        
 
         # Password to SHA512
         password = utils.hashing(password, self.app.config.get('salt'))
@@ -778,7 +783,7 @@ class RegisterHandler(BaseHandler):
         user = self.auth.store.user_model.create_user(
             auth_id, unique_properties, password_raw=password,
             username=username, name=name, last_name=last_name, email=email,
-            ip=self.request.remote_addr, country=country, tz=tz
+            ip=self.request.remote_addr, age=age, height=height
         )
 
         if not user[0]: #user is a tuple
@@ -877,8 +882,10 @@ class RegisterHandler(BaseHandler):
     @webapp2.cached_property
     def form(self):
         f = forms.RegisterForm(self)
-        f.country.choices = self.countries_tuple
-        f.tz.choices = self.tz
+        #f.country.choices = self.countries_tuple
+        #f.tz.choices = self.tz
+        f.age.choices = self.age
+        f.height.choices = self.height
         return f
 
 
@@ -1516,6 +1523,14 @@ class EmailChangedCompleteHandler(BaseHandler):
             self.redirect_to('edit-profile')
 
 
+class ArduinoSensorData(ndb.Model):
+    #test = ndb.StringProperty(default="")
+    #test1 = ndb.StringProperty(default="")
+    #test2 = ndb.StringProperty(default="")
+    email = ndb.StringProperty()
+    weight = ndb.IntegerProperty(default=0)
+    timestamp = ndb.DateTimeProperty(auto_now_add=True)
+
 class HomeRequestHandler(RegisterBaseHandler):
     """
     Handler to show the home page
@@ -1524,12 +1539,35 @@ class HomeRequestHandler(RegisterBaseHandler):
     def get(self):
         """ Returns a simple HTML form for home """
         
+        user = self.current_user
         weighttimedata = "["
-        weighttimedata += "{ d: '" + "2012-10-01" + "', weight: " + "160" + " },"
-        weighttimedata += "{ d: '2012-10-02', weight: 161, bmi: 50 },{ d: '2012-10-03', weight: 163, bmi: 50 },{ d: '2012-10-04', weight: 159, bmi: 50 },{ d: '2012-10-05', weight: 160 },{ d: '2012-10-06', weight: 165 },{ d: '2012-10-07', weight: 163 },{ d: '2012-10-08', weight: 164 },{ d: '2012-10-09', weight: 163 },{ d: '2012-10-10', weight: 160 },{ d: '2012-10-11', weight: 157 },{ d: '2012-10-12', weight: 160 },{ d: '2012-10-13', weight: 160 },{ d: '2012-10-14', weight: 161 },{ d: '2012-10-15', weight: 162 },{ d: '2012-10-16', weight: 160 },{ d: '2012-10-17', weight: 161 },{ d: '2012-10-18', weight: 163 },{ d: '2012-10-19', weight: 159 },{ d: '2012-10-20', weight: 160 },{ d: '2012-10-21', weight: 165 },{ d: '2012-10-22', weight: 163 },{ d: '2012-10-23', weight: 164 },{ d: '2012-10-24', weight: 163 },{ d: '2012-10-25', weight: 160 },{ d: '2012-10-26', weight: 157 },{ d: '2012-10-27', weight: 160 },{ d: '2012-10-28', weight: 160 },{ d: '2012-10-29', weight: 161 },{ d: '2012-10-30', weight: 162 },{ d: '2012-10-31', weight: 162 },]"
+        weight = 1
+        bmi = 1
+        if user:
+            
+            #data = ArduinoSensorData.query(ArduinoSensorData.email == user.email).order(ArduinoSensorData.timestamp)
+            data = ArduinoSensorData.query().order(ArduinoSensorData.timestamp)
+            
+            #data = data_temp.filter(ArduinoSensorData.email == user.email)
+                                
+            
+            
+            for row in data:
+                if row.weight:
+                    weighttimedata += "{ d: '" + str(row.timestamp) + "', weight: " + str(row.weight) + ", bmi: " + str(row.weight/user.height^2) + " },"
+                    #self.add_message(weighttimedata, 'success')
+                    
+                weight = row.weight
+                bmi = row.weight/user.height^2
+                    
+                    #self.add_message(row.weight, 'success')
+                    
+        weighttimedata += "]"
         
         params = {
-            'data': weighttimedata
+            'data': weighttimedata,
+            'weight': weight,
+            'bmi': bmi
         }
         
         return self.render_template('home.html', **params)

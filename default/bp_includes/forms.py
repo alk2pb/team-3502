@@ -84,10 +84,16 @@ class LoginForm(UsernameEmailMixin):
                                 id='l_password')
     pass
 
-
 class RegisterForm(PasswordConfirmMixin, UsernameMixin, NameMixin, EmailMixin):
-    country = fields.SelectField(_('Country'), choices=[])
-    tz = fields.SelectField(_('Timezone'), choices=[])
+    #country = fields.SelectField(_('Country'), choices=[])
+    #tz = fields.SelectField(_('Timezone'), choices=[])
+
+    #ages = tuple((int(n), int(n)) for n in range(1, 101))
+    age = fields.SelectField(_('Age'), choices=[], coerce=int)
+    
+    #heights = tuple((int(n), int(n)) for n in range(1, 251))
+    height = fields.SelectField(_('Height'), choices=[], coerce=int)
+    
     pass
 
 

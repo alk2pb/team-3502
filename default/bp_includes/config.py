@@ -70,8 +70,8 @@ config = {
     'github_client_secret': 'GITHUB_CLIENT_SECRET',
 
     # get your own recaptcha keys by registering at http://www.google.com/recaptcha/
-    'captcha_public_key': "CAPTCHA_PUBLIC_KEY",
-    'captcha_private_key': "CAPTCHA_PRIVATE_KEY",
+    'captcha_public_key': "6Ldx-fISAAAAACz-4TDAqZu_Z0xk4AxmC8iWuERD",
+    'captcha_private_key': "6Ldx-fISAAAAADDfugC6FMKu6RMjclBSyvY1J5nI",
 
     # Use a complete Google Analytics code, no just the Tracking ID
     # In config/boilerplate.py there is an example to fill out this value

@@ -25,8 +25,8 @@
               {{ macros.field(form.email, label=_("Email"), placeholder=_("Enter your")+" "+_("Email"), class="input-xlarge focused required email form-control", type="email") }}
               {{ macros.field(form.password, label=_("Password"), placeholder=_("Enter your")+" "+_("Password"), class="input-xlarge focused required form-control", type="password") }}
               {{ macros.field(form.c_password, label=_("Confirm Password"), placeholder=_("Confirm Password"), class="input-xlarge focused required form-control", type="password") }}
-              <!--{{ macros.field(form.country, label=_("Country"), class="form-control") }}
-              {{ macros.field(form.tz, label=_("Timezone"), class="form-control") }}-->
+              {{ macros.field(form.age, label=_("Age"), class="form-control") }}
+              {{ macros.field(form.height, label=_("Height in Centimeters"), class="form-control") }}
               <div class="form-actions">
                   <button type="submit" class="btn btn-primary">{% trans %}Sign Up{% endtrans %}</button>
               </div>

@@ -17,6 +17,8 @@
     <div class="col-md-4">
       <h2>At a Glance</h2>
       <ul>
+        <li>Your current weight is: {{ weight }}</li>
+        <li>Your current bmi is: {{ bmi }}</li>
         <li>Since the last time you visited</li>
         <li>Progress to goal</li>
         <li>Set a goal</li>
@@ -27,7 +29,7 @@
       </ul>
       <h2>Download Data</h2>
       <ul>
-        <li>...</li>
+        <li><a href="/export">Click Here</a></li>
       </ul>
     </div>
   </div>
@@ -77,7 +79,7 @@
           <h3>{% trans %}Sign Up{% endtrans %}</h3>
           <form id="form_register" action="{{ uri_for("register") }}" method="post">
               <fieldset>
-                  <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                  <!--<input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
                   <div class="control-group">
                       <label class="controls">
                           <input class="focused required form-control" name="username" id="username" type="text" placeholder="{% trans %}Username{% endtrans %}">
@@ -98,11 +100,10 @@
                       <label class="controls">
                           <input class="focused required form-control" name="c_password" id="c_password" type="password" placeholder="{% trans %}Confirm Password{% endtrans %}">
                       </label>
-                  </div>
-                  <div class="control-group">
-                      <input type="hidden" name="country">
-                      <input type="hidden" name="tz">
-                      <button type="submit" class="btn btn-primary">{% trans %}Sign Up{% endtrans %}</button>
+                  </div>-->
+                  <div id="register" class="form-actions sign-up">
+                      <h3>{% trans %}Don't have an account?{% endtrans %}</h3>
+                     	<a href="{{ uri_for("register") }}" class="btn btn-primary btn-login">{% trans %}Sign Up{% endtrans %}</a>
                   </div>
               </fieldset>
           </form>
@@ -136,9 +137,9 @@
         // Disables area fill
         fillOpacity: 0.0,
         // Add a goal
-        goals: [150],
-        goalStrokeWidth: '3px',
-        goalLineColors: ['green'],
+        //goals: [150],
+        //goalStrokeWidth: '3px',
+        //goalLineColors: ['green'],
       });
     </script>
 {% endblock %}

@@ -231,22 +231,6 @@ class BaseHandler(webapp2.RequestHandler):
         tz = [(tz, tz.replace('_', ' ')) for tz in pytz.all_timezones]
         tz.insert(0, ("", ""))
         return tz
-        
-    @webapp2.cached_property
-    def age(self):
-        age = [(int(n), int(n)) for n in range(1, 101)]
-        return age
-        
-    @webapp2.cached_property
-    def height(self):
-        height = [(int(n), int(n)) for n in range(1, 251)]
-        return height
-        
-    #@webapp2.cached_property
-    #def tz(self):
-    #    tz = [(tz, tz.replace('_', ' ')) for tz in pytz.all_timezones]
-    #    tz.insert(0, ("", ""))
-    #    return tz
 
     @webapp2.cached_property
     def get_user_tz(self):

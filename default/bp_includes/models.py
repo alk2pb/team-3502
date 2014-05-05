@@ -29,6 +29,10 @@ class User(User):
     country = ndb.StringProperty()
     #: User TimeZone
     tz = ndb.StringProperty()
+    #: Age
+    age = ndb.IntegerProperty(default=1)
+    #: Height
+    height = ndb.IntegerProperty(default=1)
     #: Account activation verifies email
     activated = ndb.BooleanProperty(default=False)
     
