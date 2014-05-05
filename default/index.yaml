@@ -10,6 +10,23 @@ indexes:
 # automatically uploaded to the admin console when you next deploy
 # your application using appcfg.py.
 
+- kind: ArduinoSensorData
+  properties:
+  - name: email
+  - name: __key__
+    direction: desc
+
+- kind: ArduinoSensorData
+  properties:
+  - name: email
+  - name: timestamp
+
+- kind: ArduinoSensorData
+  properties:
+  - name: timestamp
+  - name: __key__
+    direction: desc
+
 - kind: User
   properties:
   - name: __key__

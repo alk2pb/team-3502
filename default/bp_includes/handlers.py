@@ -1545,8 +1545,8 @@ class HomeRequestHandler(RegisterBaseHandler):
         bmi = 1
         if user:
             
-            #data = ArduinoSensorData.query(ArduinoSensorData.email == user.email).order(ArduinoSensorData.timestamp)
-            data = ArduinoSensorData.query().order(ArduinoSensorData.timestamp)
+            data = ArduinoSensorData.query(ArduinoSensorData.email == user.email).order(ArduinoSensorData.timestamp)
+            #data = ArduinoSensorData.query().order(ArduinoSensorData.timestamp)
             
             #data = data_temp.filter(ArduinoSensorData.email == user.email)
                                 

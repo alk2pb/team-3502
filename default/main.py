@@ -83,7 +83,7 @@ class Export(webapp2.RequestHandler):
   def get(self):
       user = users.get_current_user()
           
-      data = ArduinoSensorData.query().order(ArduinoSensorData.timestamp)
+      data = ArduinoSensorData.query(ArduinoSensorData.email == user.email).order(ArduinoSensorData.timestamp)
       self.response.headers['Content-Type'] = 'application/csv'
       self.response.headers['Content-Disposition'] = 'attachment; filename=data.csv'
       writer = csv.writer(self.response.out)
